@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by roquebuarque on 20/03/17.
  */
 
-public class PostResponse {
+public class PostListResponse {
 
     @SerializedName("kind")
     private String kind;
