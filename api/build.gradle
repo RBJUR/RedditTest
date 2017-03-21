@@ -1,0 +1,29 @@
+apply plugin: 'com.android.library'
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+    buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
+
+
+    defaultConfig {
+        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+        versionCode globalConfiguration.getAt("androidVersionCode")
+    }
+
+}
+
+dependencies {
+    def apiDependencies = rootProject.ext.apiDependencies
+
+    compile apiDependencies.compat
+    annotationProcessor apiDependencies.daggerCompiler
+    compile apiDependencies.dagger
+    compile apiDependencies.retrofit2
+    compile apiDependencies.converterGson
+    compile apiDependencies.okhttp
+
+
+}

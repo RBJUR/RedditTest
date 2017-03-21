@@ -1,0 +1,74 @@
+def yousetestePropertiesFile = rootProject.file("youse.properties");
+def yousetesteProperties = new Properties()
+yousetesteProperties.load(new FileInputStream(yousetestePropertiesFile))
+
+apply plugin: 'com.android.application'
+
+android {
+
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
+    compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+
+
+    signingConfigs {
+        config {
+            storeFile file(yousetesteProperties['storeFile'])
+            storePassword yousetesteProperties['storePassword']
+            keyAlias yousetesteProperties['keyAlias']
+            keyPassword yousetesteProperties['keyPassword']
+        }
+    }
+
+    defaultConfig {
+
+        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+
+        applicationId globalConfiguration.getAt("androidApplicationId")
+        versionCode globalConfiguration.getAt("androidVersionCode")
+        versionName globalConfiguration.getAt("androidVersionName")
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        demo {
+            applicationId "br.com.youseteste.demo"
+            versionName "1.0.0-demo"
+        }
+        full {
+            applicationId "br.com.youseteste"
+            versionName "1.0.0"
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    def appDependencies = rootProject.ext.appDependencies
+
+    androidTestCompile appDependencies.espresso
+    androidTestCompile appDependencies.espressoCore
+    testCompile appDependencies.junit
+    testCompile appDependencies.mockito
+
+    compile appDependencies.annotations
+    compile appDependencies.design
+    compile appDependencies.support
+    compile appDependencies.compat
+    compile appDependencies.recyclerView
+    compile appDependencies.cardView
+    compile appDependencies.picasso
+    compile appDependencies.gson
+    compile appDependencies.eventbus
+    annotationProcessor appDependencies.daggerCompiler
+    compile appDependencies.dagger
+}

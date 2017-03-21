@@ -1,0 +1,58 @@
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    //Android
+    androidBuildToolsVersion = "25.0.0"
+    androidMinSdkVersion = 16
+    androidTargetSdkVersion = 25
+    androidCompileSdkVersion = 25
+    androidSupportVersion = "25.0.0"
+    androidApplicationId = "br.com.youseteste"
+    playServicesVersion = "9.8.0"
+    androidVersionCode = 1
+    androidVersionName = "1.0.0"
+    androidVersionDev = "1.0.0-Dev"
+
+    //Libraries
+    daggerVersion = '2.8'
+    timberVersion = '4.1.2'
+    retrofit2Version = '2.0.2'
+    okHttpVersion = '2.4.0'
+    gsonVersion = '2.4'
+    daggerVersion
+
+
+    apiDependencies = [
+            compat        : "com.android.support:appcompat-v7:${androidSupportVersion}",
+            retrofit2     : "com.squareup.retrofit2:retrofit:${retrofit2Version}",
+            converterGson : "com.squareup.retrofit2:converter-gson:${retrofit2Version}",
+            okhttp        : "com.squareup.okhttp:okhttp:${okHttpVersion}",
+            daggerCompiler: "com.google.dagger:dagger-compiler:${daggerVersion}",
+            dagger        : "com.google.dagger:dagger:${daggerVersion}"
+    ]
+
+
+
+    appDependencies = [
+            espresso            : "com.android.support.test.espresso:espresso-intents:2.2.2",
+            espressoCore        : "com.android.support.test.espresso:espresso-core:2.2.2",
+            junit               : "junit:junit:4.12",
+            mockito             : "org.mockito:mockito-core:2.0.57-beta",
+            annotations         : "com.android.support:support-annotations:${androidSupportVersion}",
+            design              : "com.android.support:design:${androidSupportVersion}",
+            support             : "com.android.support:support-v4:${androidSupportVersion}",
+            compat              : "com.android.support:appcompat-v7:${androidSupportVersion}",
+            recyclerView        : "com.android.support:recyclerview-v7:${androidSupportVersion}",
+            cardView            : "com.android.support:cardview-v7:${androidSupportVersion}",
+            picasso             : "com.squareup.picasso:picasso:2.5.2",
+            gson                : "com.google.code.gson:gson:2.4",
+            eventbus            : "de.greenrobot:eventbus:2.4.0",
+            daggerCompiler      : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            dagger              : "com.google.dagger:dagger:${daggerVersion}",
+
+    ]
+}
