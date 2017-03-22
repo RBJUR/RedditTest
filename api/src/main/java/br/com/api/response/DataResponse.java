@@ -2,6 +2,8 @@ package br.com.api.response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by roquebuarque on 20/03/17.
  */
@@ -9,5 +11,9 @@ import com.google.gson.annotations.SerializedName;
 public class DataResponse {
 
     @SerializedName("children")
-    private ChildrenResponse childrenResponse;
+    private List<ChildrenResponse> childrenResponse;
+
+    public List<ChildrenResponse> getChildrenResponse() {
+        return childrenResponse;
+    }
 }

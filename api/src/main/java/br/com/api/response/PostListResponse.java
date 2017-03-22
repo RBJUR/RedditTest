@@ -13,4 +13,12 @@ public class PostListResponse {
 
     @SerializedName("data")
     private DataResponse  dataResponse;
+
+    public String getKind() {
+        return kind;
+    }
+
+    public DataResponse getDataResponse() {
+        return dataResponse;
+    }
 }

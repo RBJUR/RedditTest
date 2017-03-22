@@ -29,8 +29,8 @@ public class ItemResponse {
     @SerializedName("suggested_sort")
     private String suggestedSort;
 
-    @SerializedName("secure_media")
-    private String secureMedia;
+  /*  @SerializedName("secure_media")
+    private String secureMedia;*/
 
     @SerializedName("link_flair_text")
     private String linkFlairText;
@@ -140,8 +140,8 @@ public class ItemResponse {
     @SerializedName("distinguished")
     private String distinguished;
 
-    @SerializedName("media")
-    private String media;
+    /*@SerializedName("media")
+    private String media;*/
 
     @SerializedName("num_comments")
     private int numComments;

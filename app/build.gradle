@@ -71,4 +71,6 @@ dependencies {
     compile appDependencies.eventbus
     annotationProcessor appDependencies.daggerCompiler
     compile appDependencies.dagger
+    //compile appDependencies.cardView
+    compile project(path: ':api')
 }

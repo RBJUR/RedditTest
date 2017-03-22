@@ -4,6 +4,7 @@ import br.com.api.request.PostListRequest;
 import br.com.api.response.PostListResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Url;
 
@@ -13,8 +14,8 @@ import retrofit2.http.Url;
 
 public interface RestfulApi {
 
-    @POST
-    Call<PostListResponse> getPosts(@Url String url, @Body PostListRequest postRequest);
+    @GET
+    Call<PostListResponse> getPosts(@Url String url);
 
     /*
       api.getUniqueGoal(url, goalUnique)

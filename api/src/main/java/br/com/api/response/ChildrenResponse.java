@@ -13,6 +13,13 @@ public class ChildrenResponse {
     private String kind;
 
     @SerializedName("data")
-    private List<ItemResponse> listItemResponse;
+    private ItemResponse listItemResponse;
 
+    public String getKind() {
+        return kind;
+    }
+
+    public ItemResponse getListItemResponse() {
+        return listItemResponse;
+    }
 }
