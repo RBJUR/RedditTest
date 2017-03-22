@@ -1,13 +1,17 @@
 package br.com.youseteste.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
+import java.util.Timer;
 
 import br.com.api.response.ChildrenResponse;
 import br.com.api.response.ItemResponse;
@@ -38,9 +42,9 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             case 1: {
 
-                View itemListTransferView = LayoutInflater.from(parent.getContext())
+                View itemCardListViewHolder = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_post, parent, false);
-                return new ListDividerViewHolder(itemListTransferView);
+                return new ItemCardListViewHolder(itemCardListViewHolder);
 
             }
 
@@ -60,7 +64,7 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
 
-        if (holder.getItemViewType() == 0) {
+        if (holder.getItemViewType() == 1) {
             ChildrenResponse itemList = postResponse.getDataResponse().getChildrenResponse().get(position);
 
             if (itemList != null) {
@@ -68,6 +72,14 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 TextView txName = ((ItemCardListViewHolder) holder).mNameTime;
                 TextView txDescription = ((ItemCardListViewHolder) holder).mDescription;
                 ImageView img = ((ItemCardListViewHolder) holder).imgPost;
+
+                txDescription.setText(itemList.getListItemResponse().getTitle());
+                txName.setText(itemList.getListItemResponse().getAuthor());
+                if (itemList.getListItemResponse().getPreview() != null && itemList.getListItemResponse().getPreview().getImages() != null && itemList.getListItemResponse().getPreview().getImages().size() > 0) {
+                    Picasso.with(img.getContext()).load(itemList.getListItemResponse().getPreview().getImages().get(0).getSource().getUrl()).into(img);
+                } else {
+                    img.setVisibility(View.GONE);
+                }
 
 
             }
