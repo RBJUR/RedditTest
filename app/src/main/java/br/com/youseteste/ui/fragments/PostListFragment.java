@@ -8,11 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 
 import br.com.api.response.PostListResponse;
 import br.com.youseteste.R;
 import br.com.youseteste.adapter.PostListAdapter;
 import br.com.youseteste.presenter.PostListPresenter;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
  * Created by roquebuarque on 21/03/17.
@@ -47,6 +49,9 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        mRecyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
+        mRecyclerView.getItemAnimator().setAddDuration(600);
+
     }
 
     private void doRequestPostList() {
@@ -61,6 +66,8 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
     public void showListPost(PostListResponse postResponse) {
         mAdapter = new PostListAdapter(postResponse);
         mRecyclerView.setAdapter(mAdapter);
+
+        mAdapter.notifyItemInserted(0);
 
     }
 }

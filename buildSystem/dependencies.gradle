@@ -53,6 +53,7 @@ ext {
             eventbus            : "de.greenrobot:eventbus:2.4.0",
             daggerCompiler      : "com.google.dagger:dagger-compiler:${daggerVersion}",
             dagger              : "com.google.dagger:dagger:${daggerVersion}",
+            recyclerviewAnimator: "jp.wasabeef:recyclerview-animators:2.2.1",
             //cardView            : "com.android.support:cardview-v7:21.0.+'",
 
 
