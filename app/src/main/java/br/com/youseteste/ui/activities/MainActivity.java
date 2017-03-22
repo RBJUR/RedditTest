@@ -12,11 +12,9 @@ import br.com.youseteste.adapter.PostListAdapter;
 import br.com.youseteste.application.App;
 import br.com.youseteste.presenter.PostListPresenter;
 
-public class MainActivity extends AppCompatActivity implements PostListPresenter.PostListView {
+public class MainActivity extends AppCompatActivity  {
 
-    private PostListPresenter presenter;
-    private PostListAdapter mAdapter;
-    private RecyclerView mRecyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,31 +22,18 @@ public class MainActivity extends AppCompatActivity implements PostListPresenter
         setContentView(R.layout.activity_main);
 
         bindViews();
-        initPresenter();
+        replaceListFragment();
 
-        doRequestPostList();
+
     }
 
     private void bindViews() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        mRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        
+    }
+
+    private void replaceListFragment() {
 
     }
 
-    private void doRequestPostList() {
-        presenter.doRequestListPost();
-    }
 
-    private void initPresenter() {
-        presenter = new PostListPresenter(this);
-    }
-
-    @Override
-    public void showListPost(PostListResponse postResponse) {
-        mAdapter = new PostListAdapter(postResponse);
-        mRecyclerView.setAdapter(mAdapter);
-
-    }
 }
