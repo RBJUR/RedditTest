@@ -1,6 +1,10 @@
 package br.com.youseteste.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +23,7 @@ import br.com.api.response.ItemResponse;
 import br.com.api.response.PostListResponse;
 import br.com.component.animation.ZoomAnimation;
 import br.com.youseteste.R;
+import br.com.youseteste.ui.activities.PostDetailActivity;
 
 public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -55,8 +60,9 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         }
 
-        return null;
-
+        View itemCardListViewHolder = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_post, parent, false);
+        return new ItemCardListViewHolder(itemCardListViewHolder);
     }
 
     @Override
@@ -75,7 +81,7 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                 TextView txName = ((ItemCardListViewHolder) holder).mNameTime;
                 TextView txDescription = ((ItemCardListViewHolder) holder).mDescription;
-                ImageView img = ((ItemCardListViewHolder) holder).imgPost;
+                final ImageView img = ((ItemCardListViewHolder) holder).imgPost;
 
                 txDescription.setText(itemList.getListItemResponse().getTitle());
                 txName.setText(itemList.getListItemResponse().getAuthor());
@@ -116,7 +122,6 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             mNameTime = ((TextView) itemView.findViewById(R.id.item_post_txt_name_time));
             mDescription = ((TextView) itemView.findViewById(R.id.item_post_txt_description));
             imgPost = (ImageView) itemView.findViewById(R.id.item_post_img);
-
 
 
         }
