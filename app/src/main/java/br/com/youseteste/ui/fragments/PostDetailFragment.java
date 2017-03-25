@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 import br.com.youseteste.R;
 
 /**
@@ -34,6 +36,11 @@ public class PostDetailFragment  extends Fragment{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 coverImageView.setTransitionName(transitionName);
             }
+
+            if (!b.getString("url").isEmpty())
+                Picasso.with(getActivity()).load(b.getString("url")).into(coverImageView);
+            else
+                coverImageView.setImageDrawable(null);
 
         }
 

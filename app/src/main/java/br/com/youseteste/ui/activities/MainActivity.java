@@ -12,7 +12,6 @@ import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import br.com.api.response.PostListResponse;
 import br.com.youseteste.R;
@@ -79,6 +78,5 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         }
     }
-
 
 }

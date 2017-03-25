@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 
+import br.com.api.response.ChildrenResponse;
 import br.com.api.response.PostListResponse;
 import br.com.youseteste.R;
 import br.com.youseteste.adapter.PostListAdapter;
@@ -117,7 +118,11 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
             PostDetailFragment postDetailFragment = (PostDetailFragment) PostDetailFragment.newInstance();
             Bundle bundle = new Bundle();
             bundle.putString("transitionName", "transition" + position);
-            //bundle.putSerializable("movie", movie);
+
+            ChildrenResponse itemList = postListResponse.getDataResponse().getChildrenResponse().get(position);
+
+            String url = itemList.getListItemResponse().getPreview().getImages().get(0).getSource().getUrl();
+            bundle.putString("url", url);
 
             postDetailFragment.setArguments(bundle);
             ((MainActivity) getContext()).showFragmentWithTransition(this, postDetailFragment, "postDetail", view, "transition" + position);
