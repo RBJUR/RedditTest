@@ -1,10 +1,11 @@
 package br.com.youseteste.presenter;
 
-import java.util.List;
+import javax.inject.Inject;
 
+import br.com.api.general.RestfulApi;
 import br.com.api.general.ServiceGenerator;
-import br.com.api.interfaces.RestfulApi;
 import br.com.api.response.PostListResponse;
+import br.com.youseteste.application.App;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,11 +18,14 @@ public class PostListPresenter {
 
     private PostListView view;
 
+    @Inject
     RestfulApi api;
 
     public PostListPresenter(PostListView view) {
         this.view = view;
-        api = ServiceGenerator.createService(RestfulApi.class, "https://www.reddit.com/r/Android/new/");
+        if (App.getInstance() != null) {
+            App.getInstance().getComponent().inject(this);
+        }
 
     }
 
