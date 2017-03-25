@@ -66,14 +66,14 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                 @Override
                 public void onBitmapFailed(Drawable errorDrawable) {
-                   /// if ((errorDrawable != null) && (((ItemCardListViewHolder) holder).pos == position))
-                       // img.setImageDrawable(errorDrawable);
+                    if ((errorDrawable != null) && (((ItemCardListViewHolder) holder).pos == position))
+                        img.setImageDrawable(errorDrawable);
                 }
 
                 @Override
                 public void onPrepareLoad(Drawable placeHolderDrawable) {
-                  //  if ((placeHolderDrawable != null) && (((ItemCardListViewHolder) holder).pos == position))
-                       // img.setImageDrawable(placeHolderDrawable);
+                    if ((placeHolderDrawable != null) && (((ItemCardListViewHolder) holder).pos == position))
+                        img.setImageDrawable(placeHolderDrawable);
                 }
             };
 
@@ -85,18 +85,11 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if (itemList.getListItemResponse().getPreview() != null &&
                     itemList.getListItemResponse().getPreview().getImages() != null &&
                     itemList.getListItemResponse().getPreview().getImages().size() > 0) {
-                Picasso.with(img.getContext()).load(itemList.getListItemResponse().getPreview().getImages().get(0).getSource().getUrl()).into(target);
+                Picasso.with(img.getContext()).load(itemList.getListItemResponse().getPreview().getImages().get(itemList.getListItemResponse().getPreview().getImages().size() -1).getSource().getUrl()).into(target);
             } else {
                 img.setImageDrawable(null);
                 img.setVisibility(View.GONE);
             }
-            //Picasso.with(img.getContext()).load(movie.getImage()).into(target);
-
-
-            //img.setTag(target);
-           /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                img.setTransitionName("transition" + position);
-            }*/
 
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
