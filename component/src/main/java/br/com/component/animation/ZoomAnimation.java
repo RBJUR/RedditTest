@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.support.v7.widget.ContentFrameLayout;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
@@ -20,6 +21,7 @@ public final class ZoomAnimation {
     private Animator mCurrentAnimator;
     private ImageView mImageZoom;
     private Activity activity;
+    private FrameLayout frameLayout;
 
     public ZoomAnimation(Activity activity) {
         this.activity = activity;
@@ -43,10 +45,17 @@ public final class ZoomAnimation {
         }
 
         ContentFrameLayout container = (ContentFrameLayout) activity.findViewById(android.R.id.content);
-        RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(container.getWidth(), container.getHeight());
         mImageZoom = new ImageView(thumbView.getContext());
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-1, -1);
+        int width = activity.getWindowManager().getDefaultDisplay().getWidth();
+        int height = activity.getWindowManager().getDefaultDisplay().getHeight();
+        Log.d("activityWidth", width+"");
+        Log.d("activityHeight",  height+"");
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
         mImageZoom.setLayoutParams(params);
+        frameLayout = new FrameLayout(activity.getApplicationContext());
+        frameLayout.setLayoutParams(params);
+        frameLayout.setBackgroundColor(Color.BLACK);
+        container.addView(frameLayout);
         mImageZoom.setImageDrawable(((ImageView) thumbView).getDrawable());
         mImageZoom.setVisibility(View.GONE);
         container.addView(mImageZoom);
@@ -160,7 +169,15 @@ public final class ZoomAnimation {
 
         ContentFrameLayout container = (ContentFrameLayout) activity.findViewById(android.R.id.content);
         mImageZoom = new ImageView(thumbView.getContext());
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-1, -1);
+        int height = activity.getWindowManager().getDefaultDisplay().getHeight();
+        int width = activity.getWindowManager().getDefaultDisplay().getWidth();
+        Log.d("activityWidth", width+"");
+        Log.d("activityHeight",  height+"");
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
+        frameLayout = new FrameLayout(activity.getApplicationContext());
+        frameLayout.setLayoutParams(params);
+        frameLayout.setBackgroundColor(Color.BLACK);
+        container.addView(frameLayout);
         mImageZoom.setLayoutParams(params);
         mImageZoom.setImageDrawable(((ImageView) thumbView).getDrawable());
         mImageZoom.setVisibility(View.GONE);
@@ -211,6 +228,7 @@ public final class ZoomAnimation {
             public void onAnimationCancel(Animator animation) {
                 mCurrentAnimator = null;
                 mImageZoom.setVisibility(View.GONE);
+                frameLayout.setVisibility(View.GONE);
             }
         });
         set1.start();
@@ -230,6 +248,7 @@ public final class ZoomAnimation {
                     public void onAnimationEnd(Animator animation) {
                         thumbView.setAlpha(1.0F);
                         mImageZoom.setVisibility(View.GONE);
+                        frameLayout.setVisibility(View.GONE);
                         if (mCurrentAnimator != null) {
                             mCurrentAnimator.cancel();
                         }
@@ -239,6 +258,7 @@ public final class ZoomAnimation {
                     public void onAnimationCancel(Animator animation) {
                         thumbView.setAlpha(1.0F);
                         mImageZoom.setVisibility(View.GONE);
+                        frameLayout.setVisibility(View.GONE);
                         mCurrentAnimator = null;
                     }
                 });

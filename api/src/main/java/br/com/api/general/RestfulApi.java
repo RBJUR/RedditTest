@@ -14,4 +14,7 @@ public interface RestfulApi {
     @GET
     Call<PostListResponse> getPosts(@Url String url);
 
+
+    @GET
+    Call<PostListResponse> getPostDetail(@Url String url);
 }

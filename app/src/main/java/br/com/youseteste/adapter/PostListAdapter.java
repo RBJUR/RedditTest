@@ -85,7 +85,7 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if (itemList.getListItemResponse().getPreview() != null &&
                     itemList.getListItemResponse().getPreview().getImages() != null &&
                     itemList.getListItemResponse().getPreview().getImages().size() > 0) {
-                Picasso.with(img.getContext()).load(itemList.getListItemResponse().getPreview().getImages().get(itemList.getListItemResponse().getPreview().getImages().size() -1).getSource().getUrl()).into(target);
+                Picasso.with(img.getContext()).load(itemList.getListItemResponse().getPreview().getImages().get(itemList.getListItemResponse().getPreview().getImages().size() - 1).getSource().getUrl()).into(target);
             } else {
                 img.setImageDrawable(null);
                 img.setVisibility(View.GONE);
@@ -94,6 +94,7 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //fragment.openPostDetailFragment(position, img);
                     ZoomAnimation zoomAnimation = new ZoomAnimation(activity);
                     zoomAnimation.zoom(view, 600);
                 }
