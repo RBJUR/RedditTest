@@ -2,6 +2,7 @@ package br.com.youseteste.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,6 +27,8 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
     private PostListPresenter presenter;
     private PostListAdapter mAdapter;
     private RecyclerView mRecyclerView;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private PostListResponse postListResponse;
 
@@ -52,10 +55,30 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-       /* mRecyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
-        mRecyclerView.getItemAnimator().setAddDuration(600);*/
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                doRequestPostList();
 
+            }
+        });
+
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        swipeRefreshLayout.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        swipeRefreshLayout.setRefreshing(true);
+                                    }
+                                }
+        );
+
+        mRecyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
+        mRecyclerView.getItemAnimator().setAddDuration(600);
 
     }
 
@@ -73,7 +96,9 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
         mAdapter = new PostListAdapter(postListResponse, getActivity(), this);
         mRecyclerView.setAdapter(mAdapter);
 
-       // mAdapter.notifyItemInserted(0);
+        swipeRefreshLayout.setRefreshing(false);
+
+        mAdapter.notifyItemInserted(0);
 
     }
 
