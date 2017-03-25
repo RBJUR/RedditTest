@@ -64,7 +64,7 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
 
     @Override
     public void showListPost(PostListResponse postResponse) {
-        mAdapter = new PostListAdapter(postResponse);
+        mAdapter = new PostListAdapter(postResponse, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
         mAdapter.notifyItemInserted(0);

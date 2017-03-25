@@ -73,4 +73,5 @@ dependencies {
     compile appDependencies.dagger
     compile appDependencies.recyclerviewAnimator
     compile project(path: ':api')
+    compile project(path: ':component')
 }

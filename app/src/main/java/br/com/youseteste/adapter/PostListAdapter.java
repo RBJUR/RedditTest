@@ -1,5 +1,6 @@
 package br.com.youseteste.adapter;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,14 +17,17 @@ import java.util.Timer;
 import br.com.api.response.ChildrenResponse;
 import br.com.api.response.ItemResponse;
 import br.com.api.response.PostListResponse;
+import br.com.component.animation.ZoomAnimation;
 import br.com.youseteste.R;
 
 public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private PostListResponse postResponse;
+    private Activity activity;
 
-    public PostListAdapter(PostListResponse postData) {
+    public PostListAdapter(PostListResponse postData, Activity activity) {
         this.postResponse = postData;
+        this.activity = activity;
     }
 
 
@@ -81,6 +85,14 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     img.setVisibility(View.GONE);
                 }
 
+                img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ZoomAnimation zoomAnimation = new ZoomAnimation(activity);
+                        zoomAnimation.zoom(view, 600);
+                    }
+                });
+
 
             }
         }
@@ -104,6 +116,7 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             mNameTime = ((TextView) itemView.findViewById(R.id.item_post_txt_name_time));
             mDescription = ((TextView) itemView.findViewById(R.id.item_post_txt_description));
             imgPost = (ImageView) itemView.findViewById(R.id.item_post_img);
+
 
 
         }
