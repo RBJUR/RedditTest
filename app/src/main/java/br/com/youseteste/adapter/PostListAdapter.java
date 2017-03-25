@@ -1,12 +1,11 @@
 package br.com.youseteste.adapter;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,93 +13,100 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
-import java.util.Timer;
+import com.squareup.picasso.Target;
 
 import br.com.api.response.ChildrenResponse;
-import br.com.api.response.ItemResponse;
 import br.com.api.response.PostListResponse;
 import br.com.component.animation.ZoomAnimation;
 import br.com.youseteste.R;
-import br.com.youseteste.ui.activities.PostDetailActivity;
+import br.com.youseteste.ui.fragments.PostListFragment;
 
 public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private PostListResponse postResponse;
     private Activity activity;
+    private PostListFragment fragment;
 
-    public PostListAdapter(PostListResponse postData, Activity activity) {
+    public PostListAdapter(PostListResponse postData, Activity activity, PostListFragment frag) {
         this.postResponse = postData;
         this.activity = activity;
+        this.fragment = frag;
     }
 
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        switch (viewType) {
-
-            case 0: {
-
-                View itemListTransferView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_post, parent, false);
-                return new ListDividerViewHolder(itemListTransferView);
-
-            }
-
-            case 1: {
-
-                View itemCardListViewHolder = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_post, parent, false);
-                return new ItemCardListViewHolder(itemCardListViewHolder);
-
-            }
-
-
-        }
-
         View itemCardListViewHolder = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_post, parent, false);
         return new ItemCardListViewHolder(itemCardListViewHolder);
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return 1;
-    }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
 
 
-        if (holder.getItemViewType() == 1) {
-            ChildrenResponse itemList = postResponse.getDataResponse().getChildrenResponse().get(position);
+        final ChildrenResponse itemList = postResponse.getDataResponse().getChildrenResponse().get(position);
 
-            if (itemList != null) {
+        if (itemList != null) {
+            ((ItemCardListViewHolder) holder).pos = position;
+            TextView txName = ((ItemCardListViewHolder) holder).mNameTime;
+            TextView txDescription = ((ItemCardListViewHolder) holder).mDescription;
+            final ImageView img = ((ItemCardListViewHolder) holder).imgPost;
 
-                TextView txName = ((ItemCardListViewHolder) holder).mNameTime;
-                TextView txDescription = ((ItemCardListViewHolder) holder).mDescription;
-                final ImageView img = ((ItemCardListViewHolder) holder).imgPost;
+            txDescription.setText(itemList.getListItemResponse().getTitle());
+            txName.setText(itemList.getListItemResponse().getAuthor());
 
-                txDescription.setText(itemList.getListItemResponse().getTitle());
-                txName.setText(itemList.getListItemResponse().getAuthor());
-                if (itemList.getListItemResponse().getPreview() != null && itemList.getListItemResponse().getPreview().getImages() != null && itemList.getListItemResponse().getPreview().getImages().size() > 0) {
-                    Picasso.with(img.getContext()).load(itemList.getListItemResponse().getPreview().getImages().get(0).getSource().getUrl()).into(img);
-                } else {
-                    img.setVisibility(View.GONE);
+            Target target = new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    if ((bitmap != null) && (((ItemCardListViewHolder) holder).pos == position))
+                        img.setImageBitmap(bitmap);
                 }
 
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        ZoomAnimation zoomAnimation = new ZoomAnimation(activity);
-                        zoomAnimation.zoom(view, 600);
-                    }
-                });
+                @Override
+                public void onBitmapFailed(Drawable errorDrawable) {
+                   /// if ((errorDrawable != null) && (((ItemCardListViewHolder) holder).pos == position))
+                       // img.setImageDrawable(errorDrawable);
+                }
 
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+                  //  if ((placeHolderDrawable != null) && (((ItemCardListViewHolder) holder).pos == position))
+                       // img.setImageDrawable(placeHolderDrawable);
+                }
+            };
 
+            img.setTag(target);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                img.setTransitionName("transition" + position);
             }
+
+            if (itemList.getListItemResponse().getPreview() != null &&
+                    itemList.getListItemResponse().getPreview().getImages() != null &&
+                    itemList.getListItemResponse().getPreview().getImages().size() > 0) {
+                Picasso.with(img.getContext()).load(itemList.getListItemResponse().getPreview().getImages().get(0).getSource().getUrl()).into(target);
+            } else {
+                img.setImageDrawable(null);
+                img.setVisibility(View.GONE);
+            }
+            //Picasso.with(img.getContext()).load(movie.getImage()).into(target);
+
+
+            //img.setTag(target);
+           /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                img.setTransitionName("transition" + position);
+            }*/
+
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ZoomAnimation zoomAnimation = new ZoomAnimation(activity);
+                    zoomAnimation.zoom(view, 600);
+                }
+            });
+
+
         }
     }
 
@@ -109,10 +115,11 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return postResponse != null ? postResponse.getDataResponse().getChildrenResponse().size() : 0;
     }
 
-    public static class ItemCardListViewHolder extends RecyclerView.ViewHolder {
+    public class ItemCardListViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mNameTime, mDescription;
         public ImageView imgPost;
+        private int pos = -1;
 
 
         public ItemCardListViewHolder(View itemView) {
@@ -123,21 +130,17 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             mDescription = ((TextView) itemView.findViewById(R.id.item_post_txt_description));
             imgPost = (ImageView) itemView.findViewById(R.id.item_post_img);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    fragment.openPostDetailFragment(getAdapterPosition(), v.findViewById(R.id.item_post_img));
+                }
+            });
+
 
         }
 
     }
 
-    public static class ListDividerViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView label;
-
-        public ListDividerViewHolder(View itemView) {
-            super(itemView);
-
-            label = ((TextView) itemView.findViewById(R.id.item_post_txt_description));
-
-        }
-
-    }
 }
