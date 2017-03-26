@@ -1,4 +1,4 @@
-package br.com.api.response;
+package br.com.api.response.posts;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by roquebuarque on 26/03/17.
  */
 
-public class ComentDataChildren {
+public class CommentDataChildren {
 
     @SerializedName("replies")
     private RepliesData repliesData;

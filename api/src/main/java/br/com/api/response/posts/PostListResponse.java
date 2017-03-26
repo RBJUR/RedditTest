@@ -1,25 +1,24 @@
-package br.com.api.response;
+package br.com.api.response.posts;
 
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 /**
  * Created by roquebuarque on 20/03/17.
  */
 
-public class ChildrenResponse {
+public class PostListResponse {
+
     @SerializedName("kind")
     private String kind;
 
     @SerializedName("data")
-    private ItemResponse listItemResponse;
+    private DataResponse  dataResponse;
 
     public String getKind() {
         return kind;
     }
 
-    public ItemResponse getListItemResponse() {
-        return listItemResponse;
+    public DataResponse getDataResponse() {
+        return dataResponse;
     }
 }

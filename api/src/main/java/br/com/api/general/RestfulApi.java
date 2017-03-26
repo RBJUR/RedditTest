@@ -3,8 +3,8 @@ package br.com.api.general;
 
 import java.util.List;
 
-import br.com.api.response.PostListResponse;
-import br.com.api.response.comments.ComentItem;
+import br.com.api.response.posts.PostListResponse;
+import br.com.api.response.comments.CommentItem;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Url;
@@ -19,5 +19,5 @@ public interface RestfulApi {
 
 
     @GET
-    Call<List<ComentItem>> getPostDetail(@Url String url);
+    Call<List<CommentItem>> getPostDetail(@Url String url);
 }

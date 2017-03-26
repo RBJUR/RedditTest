@@ -3,8 +3,7 @@ package br.com.youseteste.presenter;
 import javax.inject.Inject;
 
 import br.com.api.general.RestfulApi;
-import br.com.api.general.ServiceGenerator;
-import br.com.api.response.PostListResponse;
+import br.com.api.response.posts.PostListResponse;
 import br.com.youseteste.application.App;
 import retrofit2.Call;
 import retrofit2.Callback;

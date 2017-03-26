@@ -8,15 +8,15 @@ import java.util.List;
  * Created by roquebuarque on 26/03/17.
  */
 
-public class ComentData {
+public class CommentData {
 
     @SerializedName("modhash")
     private String modHash;
 
     @SerializedName("children")
-    private List<ComentDataChildrenItem> comentDataChildrens;
+    private List<CommentDataChildrenItem> comentDataChildrens;
 
-    public List<ComentDataChildrenItem> getComentDataChildrens() {
+    public List<CommentDataChildrenItem> getComentDataChildrens() {
         return comentDataChildrens;
     }
 

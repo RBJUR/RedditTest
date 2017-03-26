@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import br.com.api.response.comments.ComentItem;
+import br.com.api.response.comments.CommentItem;
 import br.com.youseteste.R;
 import br.com.youseteste.presenter.PostDetailPresenter;
 import butterknife.BindView;
@@ -87,7 +87,7 @@ public class PostDetailFragment  extends Fragment implements PostDetailPresenter
     }
 
     @Override
-    public void showRepliesList(List<ComentItem> commentResponse) {
+    public void showRepliesList(List<CommentItem> commentResponse) {
 
     }
 }

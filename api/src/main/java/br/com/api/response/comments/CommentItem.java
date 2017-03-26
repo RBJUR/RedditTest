@@ -6,15 +6,15 @@ import com.google.gson.annotations.SerializedName;
  * Created by roquebuarque on 26/03/17.
  */
 
-public class ComentItem {
+public class CommentItem {
 
     @SerializedName("kind")
     private String kind;
 
     @SerializedName("data")
-    private ComentData comentData;
+    private CommentData comentData;
 
-    public ComentData getComentData() {
+    public CommentData getComentData() {
         return comentData;
     }
 

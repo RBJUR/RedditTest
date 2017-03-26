@@ -2,8 +2,6 @@ package br.com.api.response.comments;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 /**
  * Created by roquebuarque on 26/03/17.
  */
@@ -11,9 +9,9 @@ import java.util.List;
 public class RepliesData {
 
     @SerializedName("data")
-    private ComentData comentData;
+    private CommentData comentData;
 
-    public ComentData getComentData() {
+    public CommentData getComentData() {
         return comentData;
     }
 

@@ -1,4 +1,4 @@
-package br.com.api.response;
+package br.com.api.response.posts;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,19 +6,18 @@ import com.google.gson.annotations.SerializedName;
  * Created by roquebuarque on 20/03/17.
  */
 
-public class PostListResponse {
-
+public class ChildrenResponse {
     @SerializedName("kind")
     private String kind;
 
     @SerializedName("data")
-    private DataResponse  dataResponse;
+    private ItemResponse listItemResponse;
 
     public String getKind() {
         return kind;
     }
 
-    public DataResponse getDataResponse() {
-        return dataResponse;
+    public ItemResponse getListItemResponse() {
+        return listItemResponse;
     }
 }

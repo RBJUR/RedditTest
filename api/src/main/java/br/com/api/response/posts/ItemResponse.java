@@ -1,8 +1,6 @@
-package br.com.api.response;
+package br.com.api.response.posts;
 
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 /**
  * Created by roquebuarque on 20/03/17.

@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Toast;
 
-import br.com.api.response.ChildrenResponse;
-import br.com.api.response.PostListResponse;
+import br.com.api.response.posts.ChildrenResponse;
+import br.com.api.response.posts.PostListResponse;
 import br.com.youseteste.R;
 import br.com.youseteste.adapter.PostListAdapter;
 import br.com.youseteste.helper.ToolbarHelper;
