@@ -14,9 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
+        tools:text="r/funny 16 i.imgur"
         android:textColor="@color/snow4"
-        android:textSize="12sp"
-        tools:text="r/funny 16 i.imgur" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/item_post_txt_description"
@@ -25,18 +25,18 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        tools:text="Who says Frodo is a bad actor"
         android:textColor="@color/black"
-        android:textSize="16sp"
-        tools:text="Who says Frodo is a bad actor" />
+        android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/item_post_img"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:scaleType="centerCrop"
         android:transitionName="@string/activity_image_trans"
+        android:layout_gravity="center"
         tools:src="@drawable/icone_frodo" />
 
     <LinearLayout
