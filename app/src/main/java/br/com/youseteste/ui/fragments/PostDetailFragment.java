@@ -27,13 +27,15 @@ import butterknife.ButterKnife;
  * Created by roquebuarque on 21/03/17.
  */
 
-public class PostDetailFragment  extends Fragment implements PostDetailPresenter.PostDetailView {
+public class PostDetailFragment extends Fragment implements PostDetailPresenter.PostDetailView {
 
     @BindView(R.id.item_post_img)
     ImageView coverImageView;
 
     @BindView(R.id.main_toolbar)
     Toolbar toolbar;
+
+    private String permalink;
 
     private Bundle bundle;
     private PostDetailPresenter presenter;
@@ -54,9 +56,10 @@ public class PostDetailFragment  extends Fragment implements PostDetailPresenter
 
         ButterKnife.bind(this, view);
 
-        initPresenter();
         initializeBundle();
         setCoverImage();
+        initPresenter();
+
 
         ToolbarHelper.setup((AppCompatActivity) getActivity(), toolbar, true, true, getResources().getString(R.string.empty));
 
@@ -66,7 +69,7 @@ public class PostDetailFragment  extends Fragment implements PostDetailPresenter
 
     private void initPresenter() {
         presenter = new PostDetailPresenter(this);
-        presenter.doRequestReplies();
+        presenter.doRequestReplies(permalink);
 
     }
 
@@ -76,16 +79,21 @@ public class PostDetailFragment  extends Fragment implements PostDetailPresenter
 
     private void setCoverImage() {
         if (bundle != null) {
+
+
+            permalink = bundle.getString("permalink");
             String transitionName = bundle.getString("transitionName");
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 coverImageView.setTransitionName(transitionName);
             }
 
-            if (!bundle.getString("url").isEmpty())
+            if (!bundle.getString("url").isEmpty()) {
                 Picasso.with(getActivity()).load(bundle.getString("url")).into(coverImageView);
-            else
+            } else {
+                coverImageView.setVisibility(View.GONE);
                 coverImageView.setImageDrawable(null);
+            }
 
         }
     }

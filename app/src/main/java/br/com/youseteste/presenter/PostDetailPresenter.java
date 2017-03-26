@@ -1,5 +1,8 @@
 package br.com.youseteste.presenter;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -30,30 +33,56 @@ public class PostDetailPresenter {
 
     }
 
-    public void doRequestReplies() {
+    public void doRequestReplies(String perlink) {
 
-        Call<List<CommentItem>> call = api.getPostDetail("/r/Android/comments/60u8sw/how_to_get_a_vertual_us_phone_no/.json");
+        Call<Response> call = api.getPostDetail(perlink+".json");
 
-        call.enqueue(new Callback< List<CommentItem> >() {
+        call.enqueue(new Callback<Response >() {
             @Override
-            public void onResponse(Call< List<CommentItem> > call, Response< List<CommentItem> > response) {
-                onSuccessListReplies(response.body());
+            public void onResponse(Call< Response > call, Response< Response> response) {
+                onSuccessListReplies(response);
             }
 
             @Override
-            public void onFailure(Call< List<CommentItem> > call, Throwable t) {
+            public void onFailure(Call<Response> call, Throwable t) {
                 t.printStackTrace();
             }
         });
 
     }
 
-    void onSuccessListReplies(List<CommentItem>  commentResponse){
-        if(commentResponse != null && commentResponse.size() > 0){
+    void onSuccessListReplies(Response  commentResponse){
+        if(commentResponse != null){
 
         }
 
     }
+
+  /*  public static String getStringFromRetrofitResponse(Response response) {
+        //Try to get response body
+        BufferedReader reader = null;
+        StringBuilder sb = new StringBuilder();
+        try {
+
+            response.body()
+            reader = new BufferedReader(new InputStreamReader(response.body().in()));
+
+            String line;
+
+            try {
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return sb.toString();
+
+    }*/
     public interface PostDetailView {
 
         void showRepliesList(List<CommentItem> commentResponse);

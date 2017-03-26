@@ -1,6 +1,9 @@
 package br.com.api.response.comments;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.lang.annotation.ElementType;
 
 /**
  * Created by roquebuarque on 26/03/17.
@@ -27,6 +30,7 @@ public class ChildrenRepliesData {
     private int ups;
 
     @SerializedName("replies")
+    @Expose()
     private RepliesData repliesData;
 
     public RepliesData getRepliesData() {
