@@ -20,6 +20,9 @@ public class ChildrenRepliesData {
     @SerializedName("downs")
     private int downs;
 
+    @SerializedName("num_comments")
+    private int numComments;
+
     @SerializedName("ups")
     private int ups;
 
@@ -53,5 +56,9 @@ public class ChildrenRepliesData {
 
     public String getTitle() {
         return title;
+    }
+
+    public int getNumComments() {
+        return numComments;
     }
 }
