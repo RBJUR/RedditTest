@@ -31,7 +31,7 @@ public class PostListPresenter {
 
     public void doRequestListPost() {
 
-        Call<PostListResponse> call = api.getPosts(".json");
+        Call<PostListResponse> call = api.getPosts("/r/Android/new/.json");
 
         call.enqueue(new Callback<PostListResponse>() {
             @Override

@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import br.com.api.dagger.RestClientModule;
 import br.com.youseteste.application.App;
+import br.com.youseteste.presenter.PostDetailPresenter;
 import br.com.youseteste.presenter.PostListPresenter;
 import dagger.Component;
 
@@ -20,5 +21,7 @@ public interface ApplicationComponent {
     void inject(App app);
 
     void inject(PostListPresenter presenter);
+
+    void inject(PostDetailPresenter presenter);
 
 }

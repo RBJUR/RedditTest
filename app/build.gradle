@@ -72,6 +72,9 @@ dependencies {
     annotationProcessor appDependencies.daggerCompiler
     compile appDependencies.dagger
     compile appDependencies.recyclerviewAnimator
+    compile appDependencies.cardView
+    compile appDependencies.butterKnife
+    compile appDependencies.butterKnifeCompiler
     compile project(path: ':api')
     compile project(path: ':component')
 }

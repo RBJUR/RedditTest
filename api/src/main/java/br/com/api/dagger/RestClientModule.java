@@ -29,7 +29,7 @@ public class RestClientModule {
 
         return new Retrofit.Builder()
                 .client(client)
-                .baseUrl("https://www.reddit.com/r/Android/new/")
+                .baseUrl("https://www.reddit.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
