@@ -2,8 +2,11 @@ package br.com.youseteste.ui.fragments;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.BoolRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import java.util.List;
 
 import br.com.api.response.comments.CommentItem;
 import br.com.youseteste.R;
+import br.com.youseteste.helper.ToolbarHelper;
 import br.com.youseteste.presenter.PostDetailPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +31,9 @@ public class PostDetailFragment  extends Fragment implements PostDetailPresenter
 
     @BindView(R.id.item_post_img)
     ImageView coverImageView;
+
+    @BindView(R.id.main_toolbar)
+    Toolbar toolbar;
 
     private Bundle bundle;
     private PostDetailPresenter presenter;
@@ -51,7 +58,9 @@ public class PostDetailFragment  extends Fragment implements PostDetailPresenter
         initializeBundle();
         setCoverImage();
 
+        ToolbarHelper.setup((AppCompatActivity) getActivity(), toolbar, true, true, getResources().getString(R.string.empty));
 
+        toolbar.bringToFront();
 
     }
 

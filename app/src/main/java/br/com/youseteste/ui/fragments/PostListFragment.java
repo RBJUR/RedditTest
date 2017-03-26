@@ -10,6 +10,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
@@ -61,6 +63,7 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        setHasOptionsMenu(true);
 
         bindViews();
         swipeRefreshListener();
@@ -70,6 +73,16 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
         recycleViewScrollListener();
 
     }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.main_menu, menu);
+    }
+
+
 
     @OnClick(R.id.post_list_image_reddit)
     void redditBottomClickListener() {
@@ -115,7 +128,7 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
     }
 
     private void setupToolbar() {
-        ToolbarHelper.setup((AppCompatActivity) getActivity(), toolbar, false, false, getResources().getString(R.string.app_name));
+        ToolbarHelper.setup((AppCompatActivity) getActivity(), toolbar, true, true, getResources().getString(R.string.app_name));
 
     }
 
