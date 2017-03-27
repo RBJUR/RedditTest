@@ -28,8 +28,14 @@ public class PostListPresenter {
 
     }
 
-    public void doRequestListPost() {
+    public void getListPost() {
 
+       doRequestListPost();
+
+    }
+
+    public void doRequestListPost() {
+        view.showLoading(true);
         Call<PostListResponse> call = api.getPosts("/r/Android/new/.json");
 
         call.enqueue(new Callback<PostListResponse>() {
@@ -40,14 +46,21 @@ public class PostListPresenter {
 
             @Override
             public void onFailure(Call<PostListResponse> call, Throwable t) {
-                view.showDialogRetry();
+                onFailureRequestList();
                 t.printStackTrace();
             }
         });
+    }
+
+    public void onFailureRequestList() {
+        view.showLoading(false);
+        view.showDialogRetry();
+
 
     }
 
-    private void onSuccessListPost(Response<PostListResponse> response) {
+    public void onSuccessListPost(Response<PostListResponse> response) {
+        view.showLoading(false);
         if (response != null && response.body() != null) {
             PostListResponse postResponse = response.body();
             view.showListPost(postResponse);
@@ -60,6 +73,8 @@ public class PostListPresenter {
         void showListPost(PostListResponse postResponse);
 
         void showDialogRetry();
+
+        void showLoading(boolean show);
 
     }
 

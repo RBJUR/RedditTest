@@ -184,7 +184,7 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
     }
 
     private void doRequestPostList() {
-        presenter.doRequestListPost();
+        presenter.getListPost();
     }
 
     private void initPresenter() {
@@ -219,7 +219,7 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         swipeRefreshLayout.setRefreshing(true);
-                        presenter.doRequestListPost();
+                        presenter.getListPost();
                     }
                 });
 
