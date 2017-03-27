@@ -6,6 +6,8 @@ import android.support.annotation.BoolRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,8 @@ import java.util.List;
 import br.com.api.response.comments.CommentItem;
 import br.com.component.animation.ZoomAnimation;
 import br.com.youseteste.R;
+import br.com.youseteste.adapter.CommentListAdapter;
+import br.com.youseteste.adapter.PostListAdapter;
 import br.com.youseteste.helper.ToolbarHelper;
 import br.com.youseteste.presenter.PostDetailPresenter;
 import butterknife.BindView;
@@ -37,6 +41,10 @@ public class PostDetailFragment extends Fragment implements PostDetailPresenter.
     @BindView(R.id.main_toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.detail_post_recycler_view_replies)
+    RecyclerView recyclerView;
+
+    private CommentListAdapter adapter;
     private String permalink;
 
     private Bundle bundle;
@@ -62,11 +70,18 @@ public class PostDetailFragment extends Fragment implements PostDetailPresenter.
         setCoverImage();
         initPresenter();
 
+        initializeRecycleView();
 
         ToolbarHelper.setup((AppCompatActivity) getActivity(), toolbar, true, true, getResources().getString(R.string.empty));
 
         toolbar.bringToFront();
 
+    }
+
+    private void initializeRecycleView() {
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(mLayoutManager);
     }
 
     private void initPresenter() {
@@ -115,6 +130,7 @@ public class PostDetailFragment extends Fragment implements PostDetailPresenter.
 
     @Override
     public void showRepliesList(List<CommentItem> commentResponse) {
-
+        adapter = new CommentListAdapter(commentResponse);
+        recyclerView.setAdapter(adapter);
     }
 }

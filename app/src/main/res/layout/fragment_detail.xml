@@ -68,14 +68,11 @@
                 android:textSize="16sp" />
 
 
-            <TextView
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/detail_post_recycler_view_replies"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/item_post_txt_description"
-                android:lineSpacingExtra="8dp"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:text=""
-                android:textSize="20sp" />
+                android:layout_marginTop="50dp" />
 
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>

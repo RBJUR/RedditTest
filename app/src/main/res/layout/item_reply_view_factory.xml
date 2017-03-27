@@ -1,27 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_reply_view_factory_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <TextView
-        android:id="@+id/item_reply_txt_name_time"
+        android:id="@+id/item_reply_view_factory_txt_name_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:text="r/funny 16 i.imgur"
         android:textColor="@color/snow4"
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/item_reply_txt_description"
+        android:id="@+id/item_reply_view_factory_txt_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="3dp"
         android:text="Who says Frodo is a bad actor"
         android:textColor="@color/black"
         android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/item_reply_view_factory_container_replies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="3dp"
+        android:orientation="vertical">
+
+
+    </LinearLayout>
 
 </LinearLayout>
