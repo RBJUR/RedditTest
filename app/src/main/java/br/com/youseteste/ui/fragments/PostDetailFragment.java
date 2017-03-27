@@ -17,11 +17,13 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import br.com.api.response.comments.CommentItem;
+import br.com.component.animation.ZoomAnimation;
 import br.com.youseteste.R;
 import br.com.youseteste.helper.ToolbarHelper;
 import br.com.youseteste.presenter.PostDetailPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by roquebuarque on 21/03/17.
@@ -90,6 +92,8 @@ public class PostDetailFragment extends Fragment implements PostDetailPresenter.
 
             if (!bundle.getString("url").isEmpty()) {
                 Picasso.with(getActivity()).load(bundle.getString("url")).into(coverImageView);
+
+
             } else {
                 coverImageView.setVisibility(View.GONE);
                 coverImageView.setImageDrawable(null);
@@ -101,6 +105,12 @@ public class PostDetailFragment extends Fragment implements PostDetailPresenter.
     public static Fragment newInstance() {
         return new PostDetailFragment();
 
+    }
+
+    @OnClick(R.id.item_post_img)
+    void coverImageClick() {
+        ZoomAnimation zoomAnimation = new ZoomAnimation(getActivity());
+        zoomAnimation.zoom(coverImageView, 600);
     }
 
     @Override

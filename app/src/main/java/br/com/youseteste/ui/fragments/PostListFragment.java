@@ -128,7 +128,7 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
     }
 
     private void setupToolbar() {
-        ToolbarHelper.setup((AppCompatActivity) getActivity(), toolbar, true, true, getResources().getString(R.string.app_name));
+        ToolbarHelper.setup((AppCompatActivity) getActivity(), toolbar, false, false, getResources().getString(R.string.app_name));
 
     }
 

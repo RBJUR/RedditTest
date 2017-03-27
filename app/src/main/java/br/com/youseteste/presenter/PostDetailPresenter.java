@@ -1,8 +1,14 @@
 package br.com.youseteste.presenter;
 
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,6 +16,7 @@ import javax.inject.Inject;
 import br.com.api.general.RestfulApi;
 import br.com.api.response.comments.CommentItem;
 import br.com.youseteste.application.App;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,54 +42,39 @@ public class PostDetailPresenter {
 
     public void doRequestReplies(String perlink) {
 
-        Call<Response> call = api.getPostDetail(perlink+".json");
+        Call<ResponseBody> call = api.getPostDetail(perlink+".json");
 
-        call.enqueue(new Callback<Response >() {
+        call.enqueue(new Callback<ResponseBody >() {
             @Override
-            public void onResponse(Call< Response > call, Response< Response> response) {
-                onSuccessListReplies(response);
+            public void onResponse(Call< ResponseBody > call, Response< ResponseBody> response) {
+                onSuccessListReplies(response.body());
             }
 
             @Override
-            public void onFailure(Call<Response> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 t.printStackTrace();
             }
         });
 
     }
 
-    void onSuccessListReplies(Response  commentResponse){
+    void onSuccessListReplies(ResponseBody  commentResponse){
         if(commentResponse != null){
-
-        }
-
-    }
-
-  /*  public static String getStringFromRetrofitResponse(Response response) {
-        //Try to get response body
-        BufferedReader reader = null;
-        StringBuilder sb = new StringBuilder();
-        try {
-
-            response.body()
-            reader = new BufferedReader(new InputStreamReader(response.body().in()));
-
-            String line;
-
             try {
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line);
+                String response = commentResponse.string().replaceAll("\"\"", "null");
+                Gson gson = new Gson();
+                Type listType = new TypeToken<List<CommentItem>>(){}.getType();
+                List<CommentItem> posts = (List<CommentItem>) gson.fromJson(response, listType);
+                if(posts != null){
+                    view.showRepliesList(posts);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
-        return sb.toString();
+    }
 
-    }*/
     public interface PostDetailView {
 
         void showRepliesList(List<CommentItem> commentResponse);

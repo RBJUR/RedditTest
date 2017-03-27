@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.com.api.response.posts.PostListResponse;
 import br.com.api.response.comments.CommentItem;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.GET;
@@ -20,5 +21,5 @@ public interface RestfulApi {
 
 
     @GET
-    Call<Response> getPostDetail(@Url String url);
+    Call<ResponseBody> getPostDetail(@Url String url);
 }
