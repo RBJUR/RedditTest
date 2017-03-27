@@ -196,7 +196,6 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
         postListResponse = postResponse;
         mAdapter = new PostListAdapter(postListResponse, getActivity(), this);
         mRecyclerView.setAdapter(mAdapter);
-        swipeRefreshLayout.setRefreshing(false);
         mAdapter.notifyItemInserted(0);
 
     }
@@ -204,7 +203,6 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
     @Override
     public void showDialogRetry() {
 
-        swipeRefreshLayout.setRefreshing(false);
 
         MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity())
                 .title("sorry")
@@ -218,13 +216,18 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
                 }).onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        swipeRefreshLayout.setRefreshing(true);
+
                         presenter.getListPost();
                     }
                 });
 
         MaterialDialog dialog = builder.build();
         dialog.show();
+    }
+
+    @Override
+    public void showLoading(boolean show) {
+        swipeRefreshLayout.setRefreshing(show);
     }
 
 

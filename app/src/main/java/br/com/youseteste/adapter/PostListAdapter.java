@@ -1,6 +1,7 @@
 package br.com.youseteste.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -51,10 +53,28 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ((ItemCardListViewHolder) holder).pos = position;
             TextView txName = ((ItemCardListViewHolder) holder).mNameTime;
             TextView txDescription = ((ItemCardListViewHolder) holder).mDescription;
+            RelativeLayout rlContainerShare = ((ItemCardListViewHolder) holder).rlContainerShare;
             final ImageView img = ((ItemCardListViewHolder) holder).imgPost;
+
+
 
             txDescription.setText(itemList.getListItemResponse().getTitle());
             txName.setText(itemList.getListItemResponse().getAuthor());
+
+            rlContainerShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String url = "";
+                    if(itemList.getListItemResponse().getUrl() != null){
+                        url = itemList.getListItemResponse().getUrl();
+                    }
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, url);
+                    sendIntent.setType("text/plain");
+                    activity.startActivity(sendIntent);
+                }
+            });
 
             Target target = new Target() {
                 @Override
@@ -112,6 +132,7 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         public TextView mNameTime, mDescription;
         public ImageView imgPost;
+        public RelativeLayout rlContainerShare;
         private int pos = -1;
 
 
@@ -122,6 +143,7 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             mNameTime = ((TextView) itemView.findViewById(R.id.item_post_txt_name_time));
             mDescription = ((TextView) itemView.findViewById(R.id.item_post_txt_description));
             imgPost = (ImageView) itemView.findViewById(R.id.item_post_img);
+            rlContainerShare = (RelativeLayout) itemView.findViewById(R.id.container_share);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
