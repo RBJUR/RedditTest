@@ -76,6 +76,9 @@ dependencies {
     compile appDependencies.butterKnife
     compile appDependencies.butterKnifeCompiler
     compile appDependencies.chromeTabs
+    compile appDependencies.materialDialogs
+
+    
     compile project(path: ':api')
     compile project(path: ':component')
 }

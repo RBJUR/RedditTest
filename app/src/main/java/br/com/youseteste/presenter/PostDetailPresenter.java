@@ -52,19 +52,20 @@ public class PostDetailPresenter {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                view.showRetryDialog();
                 t.printStackTrace();
             }
         });
 
     }
 
-    void onSuccessListReplies(ResponseBody  commentResponse){
+    private void onSuccessListReplies(ResponseBody  commentResponse){
         if(commentResponse != null){
             try {
                 String response = commentResponse.string().replaceAll("\"\"", "null");
                 Gson gson = new Gson();
                 Type listType = new TypeToken<List<CommentItem>>(){}.getType();
-                List<CommentItem> posts = (List<CommentItem>) gson.fromJson(response, listType);
+                List<CommentItem> posts = gson.fromJson(response, listType);
                 if(posts != null){
                     view.showRepliesList(posts);
                 }
@@ -78,5 +79,7 @@ public class PostDetailPresenter {
     public interface PostDetailView {
 
         void showRepliesList(List<CommentItem> commentResponse);
+
+        void showRetryDialog();
     }
 }

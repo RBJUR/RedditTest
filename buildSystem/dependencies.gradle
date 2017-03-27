@@ -31,7 +31,7 @@ ext {
             compat        : "com.android.support:appcompat-v7:${androidSupportVersion}",
             retrofit2     : "com.squareup.retrofit2:retrofit:${retrofit2Version}",
             converterGson : "com.squareup.retrofit2:converter-gson:${retrofit2Version}",
-            okhttp              :  "com.squareup.okhttp3:logging-interceptor:3.0.1",
+            okhttp        : "com.squareup.okhttp3:logging-interceptor:3.0.1",
             daggerCompiler: "com.google.dagger:dagger-compiler:${daggerVersion}",
             dagger        : "com.google.dagger:dagger:${daggerVersion}"
     ]
@@ -58,6 +58,7 @@ ext {
             butterKnife         : "com.jakewharton:butterknife:${butterKnifeVersion}",
             butterKnifeCompiler : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
             chromeTabs          : "com.android.support:customtabs:25.0.1",
+            materialDialogs     : "com.afollestad.material-dialogs:core:0.9.4.2",
 
 
     ]

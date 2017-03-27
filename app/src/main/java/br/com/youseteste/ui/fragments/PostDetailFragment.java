@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.BoolRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -64,10 +67,7 @@ public class PostDetailFragment extends Fragment implements PostDetailPresenter.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-
-        return rootView;
+        return inflater.inflate(R.layout.fragment_detail, container, false);
     }
 
     @Override
@@ -139,12 +139,12 @@ public class PostDetailFragment extends Fragment implements PostDetailPresenter.
     }
 
     @OnClick(R.id.detail_post_fab)
-    void chromeTabPost(){
-        if(url != null && !url.isEmpty()){
+    void chromeTabPost() {
+        if (url != null && !url.isEmpty()) {
             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
             CustomTabsIntent customTabsIntent = builder.build();
-            customTabsIntent.launchUrl((MainActivity) getContext(), Uri.parse(url));
-        }else{
+            customTabsIntent.launchUrl(getContext(), Uri.parse(url));
+        } else {
             Toast.makeText(getContext(), "Unable to open", Toast.LENGTH_SHORT).show();
         }
     }
@@ -159,5 +159,27 @@ public class PostDetailFragment extends Fragment implements PostDetailPresenter.
     public void showRepliesList(List<CommentItem> commentResponse) {
         adapter = new CommentListAdapter(commentResponse);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void showRetryDialog() {
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity())
+                .title("sorry")
+                .content("unable to get post comments")
+                .positiveText("retry")
+                .negativeText("cancel").onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                }).onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        presenter.doRequestReplies(permalink);
+                    }
+                });
+
+        MaterialDialog dialog = builder.build();
+        dialog.show();
     }
 }

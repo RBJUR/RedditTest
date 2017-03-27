@@ -1,6 +1,7 @@
 package br.com.youseteste.ui.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,6 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Toast;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import br.com.api.response.posts.ChildrenResponse;
 import br.com.api.response.posts.PostListResponse;
@@ -55,8 +59,7 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_post_list, container, false);
-        return rootView;
+        return inflater.inflate(R.layout.fragment_post_list, container, false);
     }
 
     @Override
@@ -81,7 +84,6 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
         menu.clear();
         inflater.inflate(R.menu.main_menu, menu);
     }
-
 
 
     @OnClick(R.id.post_list_image_reddit)
@@ -196,6 +198,32 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
 
     }
 
+    @Override
+    public void showDialogRetry() {
+
+        swipeRefreshLayout.setRefreshing(false);
+
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity())
+                .title("sorry")
+                .content("unable to get post list")
+                .positiveText("retry")
+                .negativeText("cancel").onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                }).onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        swipeRefreshLayout.setRefreshing(true);
+                        presenter.doRequestListPost();
+                    }
+                });
+
+        MaterialDialog dialog = builder.build();
+        dialog.show();
+    }
+
 
     /**
      * function to open the post detail fragment
@@ -203,38 +231,44 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
      * @param position post list position
      */
     public void openPostDetailFragment(int position, View view) {
-        if (getContext() instanceof MainActivity) {
 
-            PostDetailFragment postDetailFragment = (PostDetailFragment) PostDetailFragment.newInstance();
-            Bundle bundle = new Bundle();
-            bundle.putString("transitionName", "transition" + position);
+        try {
+            if (getContext() instanceof MainActivity) {
 
-            String permalink = "";
-            String title = "";
-            String postUrl = "";
+                PostDetailFragment postDetailFragment = (PostDetailFragment) PostDetailFragment.newInstance();
+                Bundle bundle = new Bundle();
+                bundle.putString("transitionName", "transition" + position);
 
-            ChildrenResponse itemList = postListResponse.getDataResponse().getChildrenResponse().get(position);
+                String permalink = "";
+                String title = "";
+                String postUrl = "";
 
-            if(itemList != null && itemList.getListItemResponse().getPermalink() != null &&
-                    !itemList.getListItemResponse().getPermalink().isEmpty()){
-                permalink =  itemList.getListItemResponse().getPermalink();
-                title =  itemList.getListItemResponse().getTitle();
-                postUrl =  itemList.getListItemResponse().getUrl();
+                ChildrenResponse itemList = postListResponse.getDataResponse().getChildrenResponse().get(position);
+
+                if (itemList != null && itemList.getListItemResponse().getPermalink() != null &&
+                        !itemList.getListItemResponse().getPermalink().isEmpty()) {
+                    permalink = itemList.getListItemResponse().getPermalink();
+                    title = itemList.getListItemResponse().getTitle();
+                    postUrl = itemList.getListItemResponse().getUrl();
+                }
+
+                String url = "";
+                if (itemList.getListItemResponse().getPreview() != null && itemList.getListItemResponse().getPreview().getImages().size() > 0 &&
+                        itemList.getListItemResponse().getPreview().getImages().get(0).getSource() != null) {
+                    url = itemList.getListItemResponse().getPreview().getImages().get(0).getSource().getUrl();
+                }
+                bundle.putString("url", url);
+                bundle.putString("permalink", permalink);
+                bundle.putString("title", title);
+                bundle.putString("postUrl", postUrl);
+
+                postDetailFragment.setArguments(bundle);
+                ((MainActivity) getContext()).showFragmentWithTransition(this, postDetailFragment, "postDetail", view, "transition" + position);
             }
-
-            String url = "";
-            if (itemList.getListItemResponse().getPreview() != null && itemList.getListItemResponse().getPreview().getImages().size() > 0 &&
-                    itemList.getListItemResponse().getPreview().getImages().get(0).getSource() != null) {
-                url = itemList.getListItemResponse().getPreview().getImages().get(0).getSource().getUrl();
-            }
-            bundle.putString("url", url);
-            bundle.putString("permalink", permalink);
-            bundle.putString("title", title);
-            bundle.putString("postUrl", postUrl);
-
-            postDetailFragment.setArguments(bundle);
-            ((MainActivity) getContext()).showFragmentWithTransition(this, postDetailFragment, "postDetail", view, "transition" + position);
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
         }
+
     }
 }
 

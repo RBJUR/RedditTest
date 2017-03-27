@@ -40,6 +40,7 @@ public class PostListPresenter {
 
             @Override
             public void onFailure(Call<PostListResponse> call, Throwable t) {
+                view.showDialogRetry();
                 t.printStackTrace();
             }
         });
@@ -57,6 +58,9 @@ public class PostListPresenter {
     public interface PostListView {
 
         void showListPost(PostListResponse postResponse);
+
+        void showDialogRetry();
+
     }
 
 }
