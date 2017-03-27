@@ -3,11 +3,9 @@ package br.com.youseteste.ui.fragments;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.BoolRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsIntent;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,10 +29,8 @@ import br.com.api.response.comments.CommentItem;
 import br.com.component.animation.ZoomAnimation;
 import br.com.youseteste.R;
 import br.com.youseteste.adapter.CommentListAdapter;
-import br.com.youseteste.adapter.PostListAdapter;
 import br.com.youseteste.helper.ToolbarHelper;
 import br.com.youseteste.presenter.PostDetailPresenter;
-import br.com.youseteste.ui.activities.MainActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -55,6 +52,9 @@ public class PostDetailFragment extends Fragment implements PostDetailPresenter.
 
     @BindView(R.id.detail_post_recycler_view_replies)
     RecyclerView recyclerView;
+
+    @BindView(R.id.post_detail_progress)
+    ProgressBar progress;
 
 
     private CommentListAdapter adapter;
@@ -96,7 +96,7 @@ public class PostDetailFragment extends Fragment implements PostDetailPresenter.
 
     private void initPresenter() {
         presenter = new PostDetailPresenter(this);
-        presenter.doRequestReplies(permalink);
+        presenter.getComments(permalink);
 
     }
 
@@ -175,11 +175,16 @@ public class PostDetailFragment extends Fragment implements PostDetailPresenter.
                 }).onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        presenter.doRequestReplies(permalink);
+                        presenter.getComments(permalink);
                     }
                 });
 
         MaterialDialog dialog = builder.build();
         dialog.show();
+    }
+
+    @Override
+    public void showLoading(boolean show) {
+        progress.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 }

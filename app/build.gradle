@@ -63,6 +63,8 @@ dependencies {
     compile appDependencies.annotations
     compile appDependencies.design
     compile appDependencies.support
+    compile appDependencies.junit
+    compile appDependencies.mockito
     compile appDependencies.compat
     compile appDependencies.recyclerView
     compile appDependencies.cardView
@@ -78,7 +80,7 @@ dependencies {
     compile appDependencies.chromeTabs
     compile appDependencies.materialDialogs
 
-    
+
     compile project(path: ':api')
     compile project(path: ':component')
 }

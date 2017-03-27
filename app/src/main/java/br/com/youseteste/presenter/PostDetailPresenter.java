@@ -40,33 +40,47 @@ public class PostDetailPresenter {
 
     }
 
-    public void doRequestReplies(String perlink) {
+    public void getComments(String perlink) {
 
-        Call<ResponseBody> call = api.getPostDetail(perlink+".json");
+        view.showLoading(true);
+        doRequestGetComments(perlink);
 
-        call.enqueue(new Callback<ResponseBody >() {
+    }
+
+    public void doRequestGetComments(String perlink) {
+
+        Call<ResponseBody> call = api.getPostDetail(perlink + ".json");
+
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call< ResponseBody > call, Response< ResponseBody> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 onSuccessListReplies(response.body());
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                view.showRetryDialog();
+                onFailureReplies();
                 t.printStackTrace();
             }
         });
-
     }
 
-    private void onSuccessListReplies(ResponseBody  commentResponse){
-        if(commentResponse != null){
+    public void onFailureReplies() {
+        view.showLoading(false);
+        view.showRetryDialog();
+    }
+
+    public void onSuccessListReplies(ResponseBody commentResponse) {
+        view.showLoading(false);
+
+        if (commentResponse != null) {
             try {
                 String response = commentResponse.string().replaceAll("\"\"", "null");
                 Gson gson = new Gson();
-                Type listType = new TypeToken<List<CommentItem>>(){}.getType();
+                Type listType = new TypeToken<List<CommentItem>>() {
+                }.getType();
                 List<CommentItem> posts = gson.fromJson(response, listType);
-                if(posts != null){
+                if (posts != null) {
                     view.showRepliesList(posts);
                 }
             } catch (IOException e) {
@@ -81,5 +95,7 @@ public class PostDetailPresenter {
         void showRepliesList(List<CommentItem> commentResponse);
 
         void showRetryDialog();
+
+        void showLoading(boolean show);
     }
 }
