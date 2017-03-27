@@ -51,22 +51,6 @@ public class CommentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             txName.setVisibility(View.GONE);
             txDescription.setVisibility(View.GONE);
 
-          /*  if (itemList.getComentData() != null && itemList.getComentData().getComentDataChildrens() != null &&
-                    itemList.getComentData().getComentDataChildrens().size() > 0 &&
-                    itemList.getComentData().getComentDataChildrens().get(position) != null) {
-                if (itemList.getComentData().getComentDataChildrens().get(position).getDataChildren() != null) {
-                    txName.setText(itemList.getComentData().getComentDataChildrens().get(position).getDataChildren().getAuthor());
-                    if (itemList.getComentData().getComentDataChildrens().get(position).getDataChildren().getBody() != null
-                            && !itemList.getComentData().getComentDataChildrens().get(position).getDataChildren().getBody().isEmpty()) {
-                        txDescription.setText(itemList.getComentData().getComentDataChildrens().get(position).getDataChildren().getBody());
-                    } else if (itemList.getComentData().getComentDataChildrens().get(position).getDataChildren().getTitle() != null
-                            && !itemList.getComentData().getComentDataChildrens().get(position).getDataChildren().getTitle().isEmpty()) {
-                        txDescription.setText(itemList.getComentData().getComentDataChildrens().get(position).getDataChildren().getTitle());
-                    }
-                }
-            }*/
-
-
             if (itemList.getComentData().getComentDataChildrens() != null &&
                     itemList.getComentData().getComentDataChildrens().size() > 0) {
                 List<CommentDataChildrenItem> dataChildrenItems = itemList.getComentData().getComentDataChildrens();
