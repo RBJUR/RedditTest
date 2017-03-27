@@ -15,7 +15,7 @@ import br.com.youseteste.R;
  */
 public class ReplyViewFactory {
 
-    public static View inflateFutureOptionView(final Context context, String author, String reply) {
+    public static View inflateFutureOptionView(final Context context, String author, String reply, int margin) {
 
         int view = R.layout.item_reply_view_factory;
 
@@ -26,9 +26,10 @@ public class ReplyViewFactory {
 
         txAuthor.setText(author);
         txReply.setText(reply);
+
+        furureView.setX((float) margin);
         return furureView;
     }
-
 
 
 }

@@ -1,6 +1,7 @@
 package br.com.youseteste.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,8 +45,13 @@ public class CommentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             TextView txName = ((ItemReplyListViewHolder) holder).mNameTime;
             TextView txDescription = ((ItemReplyListViewHolder) holder).mDescription;
             LinearLayout repliesContainer = ((ItemReplyListViewHolder) holder).mContainerReplies;
+            txName.setText("");
+            txDescription.setText("");
 
-            if (itemList.getComentData() != null && itemList.getComentData().getComentDataChildrens() != null &&
+            txName.setVisibility(View.GONE);
+            txDescription.setVisibility(View.GONE);
+
+          /*  if (itemList.getComentData() != null && itemList.getComentData().getComentDataChildrens() != null &&
                     itemList.getComentData().getComentDataChildrens().size() > 0 &&
                     itemList.getComentData().getComentDataChildrens().get(position) != null) {
                 if (itemList.getComentData().getComentDataChildrens().get(position).getDataChildren() != null) {
@@ -58,7 +64,8 @@ public class CommentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         txDescription.setText(itemList.getComentData().getComentDataChildrens().get(position).getDataChildren().getTitle());
                     }
                 }
-            }
+            }*/
+
 
             if (itemList.getComentData().getComentDataChildrens() != null &&
                     itemList.getComentData().getComentDataChildrens().size() > 0) {
@@ -72,22 +79,21 @@ public class CommentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         } else if (dataItem.getDataChildren().getTitle() != null && !dataItem.getDataChildren().getTitle().isEmpty()) {
                             comment = dataItem.getDataChildren().getTitle();
                         }
-                        repliesContainer.addView(ReplyViewFactory.inflateFutureOptionView(repliesContainer.getContext(), dataItem.getDataChildren().getAuthor(), comment));
+                        repliesContainer.addView(ReplyViewFactory.inflateFutureOptionView(repliesContainer.getContext(), dataItem.getDataChildren().getAuthor(), comment, 0));
                         if (dataItem.getDataChildren().getRepliesData() != null &&
                                 dataItem.getDataChildren().getRepliesData().getComentData() != null) {
                             if (dataItem.getDataChildren().getRepliesData().getComentData().getComentDataChildrens() != null &&
                                     dataItem.getDataChildren().getRepliesData().getComentData().getComentDataChildrens().size() > 0) {
                                 for (int pos2 = 0; pos2 < dataItem.getDataChildren().getRepliesData().getComentData().getComentDataChildrens().size(); pos2++) {
-                                    CommentDataChildrenItem replyItem = dataItem.getDataChildren().getRepliesData().getComentData().getComentDataChildrens().get(pos2);
 
+                                    CommentDataChildrenItem replyItem = dataItem.getDataChildren().getRepliesData().getComentData().getComentDataChildrens().get(pos2);
                                     String reply = "";
                                     if (replyItem.getDataChildren().getBody() != null && !replyItem.getDataChildren().getBody().isEmpty()) {
                                         reply = replyItem.getDataChildren().getBody();
                                     } else if (replyItem.getDataChildren().getTitle() != null && !replyItem.getDataChildren().getTitle().isEmpty()) {
                                         reply = replyItem.getDataChildren().getTitle();
                                     }
-
-                                    repliesContainer.addView(ReplyViewFactory.inflateFutureOptionView(repliesContainer.getContext(), replyItem.getDataChildren().getAuthor(), reply));
+                                    repliesContainer.addView(ReplyViewFactory.inflateFutureOptionView(repliesContainer.getContext(), replyItem.getDataChildren().getAuthor(), reply, 30));
 
 
                                     if (dataItem.getDataChildren().getRepliesData() != null &&
@@ -97,7 +103,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                                 dataItem.getDataChildren().getRepliesData().getComentData().getComentDataChildrens().get(pos2).getDataChildren().getRepliesData() != null &&
                                                 dataItem.getDataChildren().getRepliesData().getComentData().getComentDataChildrens().get(pos2).getDataChildren().getRepliesData().getComentData() != null &&
                                                 dataItem.getDataChildren().getRepliesData().getComentData().getComentDataChildrens().get(pos2).getDataChildren().getRepliesData().getComentData().getComentDataChildrens() != null &&
-                                                dataItem.getDataChildren().getRepliesData().getComentData().getComentDataChildrens().get(pos2).getDataChildren().getRepliesData().getComentData().getComentDataChildrens().size() > 0 ) {
+                                                dataItem.getDataChildren().getRepliesData().getComentData().getComentDataChildrens().get(pos2).getDataChildren().getRepliesData().getComentData().getComentDataChildrens().size() > 0) {
                                             for (int pos3 = 0; pos3 < dataItem.getDataChildren().getRepliesData().getComentData().getComentDataChildrens().get(pos2).getDataChildren().getRepliesData().getComentData().getComentDataChildrens().size(); pos3++) {
                                                 CommentDataChildrenItem replyItem2 = dataItem.getDataChildren().getRepliesData().getComentData().getComentDataChildrens().get(pos2).getDataChildren().getRepliesData().getComentData().getComentDataChildrens().get(pos3);
 
@@ -107,14 +113,14 @@ public class CommentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                                 } else if (replyItem2.getDataChildren().getTitle() != null && !replyItem.getDataChildren().getTitle().isEmpty()) {
                                                     reply3 = replyItem.getDataChildren().getTitle();
                                                 }
-                                                repliesContainer.addView(ReplyViewFactory.inflateFutureOptionView(repliesContainer.getContext(), replyItem2.getDataChildren().getAuthor(), reply3));
+                                                repliesContainer.addView(ReplyViewFactory.inflateFutureOptionView(repliesContainer.getContext(), replyItem2.getDataChildren().getAuthor(), reply3, 60));
                                             }
                                         }
                                     }
                                 }
                             }
-                        }
 
+                        }
                     }
                 }
 
