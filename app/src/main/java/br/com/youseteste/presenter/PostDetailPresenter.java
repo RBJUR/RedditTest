@@ -34,11 +34,14 @@ public class PostDetailPresenter {
 
     public PostDetailPresenter(PostDetailView view) {
         this.view = view;
+
+        //Inject dependency
         if (App.getInstance() != null) {
             App.getInstance().getComponent().inject(this);
         }
 
     }
+
 
     public void getComments(String perlink) {
 
@@ -47,6 +50,10 @@ public class PostDetailPresenter {
 
     }
 
+    /**
+     * Do request to get all commentes with link as parameter
+     * @param perlink
+     */
     public void doRequestGetComments(String perlink) {
 
         Call<ResponseBody> call = api.getPostDetail(perlink + ".json");
@@ -65,6 +72,9 @@ public class PostDetailPresenter {
         });
     }
 
+    /**
+     * Case failure stop loading and show dialog to retry
+     */
     public void onFailureReplies() {
         view.showLoading(false);
         view.showRetryDialog();

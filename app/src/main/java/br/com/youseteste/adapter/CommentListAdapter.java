@@ -1,20 +1,16 @@
 package br.com.youseteste.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.api.response.comments.CommentDataChildren;
 import br.com.api.response.comments.CommentDataChildrenItem;
 import br.com.api.response.comments.CommentItem;
-import br.com.api.response.posts.ChildrenResponse;
 import br.com.youseteste.R;
 import br.com.youseteste.factory.ReplyViewFactory;
 

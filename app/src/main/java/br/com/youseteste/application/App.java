@@ -26,6 +26,9 @@ public class App extends Application {
         setupGraph();
     }
 
+    /**
+     * Method to inject module to daggerApplication
+     */
     private void setupGraph() {
 
             component = DaggerApplicationComponent.builder()

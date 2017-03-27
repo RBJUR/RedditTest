@@ -15,6 +15,16 @@ public class ToolbarHelper {
 
     public static final int WHITE = 0xffffffff;
 
+    /**
+     *  Toolbar setup is a method to hel all toolbar being equals
+     *
+     * @param activity
+     * @param toolbar
+     * @param backPressedListener
+     * @param displayHomeAsUpEnabled
+     * @param title
+     * @return
+     */
     public static Toolbar setup(@NonNull final AppCompatActivity activity, Toolbar toolbar, boolean backPressedListener,
                                 boolean displayHomeAsUpEnabled, @NonNull String title) {
         if (toolbar != null) {
