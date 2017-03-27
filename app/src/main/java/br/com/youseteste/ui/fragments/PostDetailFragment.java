@@ -30,6 +30,7 @@ import br.com.youseteste.adapter.CommentListAdapter;
 import br.com.youseteste.adapter.PostListAdapter;
 import br.com.youseteste.helper.ToolbarHelper;
 import br.com.youseteste.presenter.PostDetailPresenter;
+import br.com.youseteste.ui.activities.MainActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -142,7 +143,7 @@ public class PostDetailFragment extends Fragment implements PostDetailPresenter.
         if(url != null && !url.isEmpty()){
             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
             CustomTabsIntent customTabsIntent = builder.build();
-            customTabsIntent.launchUrl(getActivity(), Uri.parse(url));
+            customTabsIntent.launchUrl((MainActivity) getContext(), Uri.parse(url));
         }else{
             Toast.makeText(getContext(), "Unable to open", Toast.LENGTH_SHORT).show();
         }
