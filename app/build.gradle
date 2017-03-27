@@ -75,6 +75,7 @@ dependencies {
     compile appDependencies.cardView
     compile appDependencies.butterKnife
     compile appDependencies.butterKnifeCompiler
+    compile appDependencies.chromeTabs
     compile project(path: ':api')
     compile project(path: ':component')
 }

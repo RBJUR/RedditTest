@@ -127,9 +127,6 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 @Override
                 public void onClick(View v) {
 
-                    final ChildrenResponse itemList = postResponse.getDataResponse().getChildrenResponse().get(getAdapterPosition());
-
-
                     fragment.openPostDetailFragment( getAdapterPosition(), v.findViewById(R.id.item_post_img));
                 }
             });

@@ -210,12 +210,16 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
             bundle.putString("transitionName", "transition" + position);
 
             String permalink = "";
+            String title = "";
+            String postUrl = "";
 
             ChildrenResponse itemList = postListResponse.getDataResponse().getChildrenResponse().get(position);
 
             if(itemList != null && itemList.getListItemResponse().getPermalink() != null &&
                     !itemList.getListItemResponse().getPermalink().isEmpty()){
                 permalink =  itemList.getListItemResponse().getPermalink();
+                title =  itemList.getListItemResponse().getTitle();
+                postUrl =  itemList.getListItemResponse().getUrl();
             }
 
             String url = "";
@@ -225,6 +229,8 @@ public class PostListFragment extends Fragment implements PostListPresenter.Post
             }
             bundle.putString("url", url);
             bundle.putString("permalink", permalink);
+            bundle.putString("title", title);
+            bundle.putString("postUrl", postUrl);
 
             postDetailFragment.setArguments(bundle);
             ((MainActivity) getContext()).showFragmentWithTransition(this, postDetailFragment, "postDetail", view, "transition" + position);

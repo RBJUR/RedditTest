@@ -1,9 +1,12 @@
 package br.com.youseteste.ui.fragments;
 
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.BoolRes;
 import android.support.annotation.Nullable;
+import android.support.customtabs.CustomTabsIntent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -38,14 +43,18 @@ public class PostDetailFragment extends Fragment implements PostDetailPresenter.
     @BindView(R.id.item_post_img)
     ImageView coverImageView;
 
+    @BindView(R.id.item_post_txt_description)
+    TextView txtTitle;
+
     @BindView(R.id.main_toolbar)
     Toolbar toolbar;
 
     @BindView(R.id.detail_post_recycler_view_replies)
     RecyclerView recyclerView;
 
+
     private CommentListAdapter adapter;
-    private String permalink;
+    private String permalink, title, url;
 
     private Bundle bundle;
     private PostDetailPresenter presenter;
@@ -99,6 +108,8 @@ public class PostDetailFragment extends Fragment implements PostDetailPresenter.
 
 
             permalink = bundle.getString("permalink");
+            title = bundle.getString("title");
+            url = bundle.getString("postUrl");
             String transitionName = bundle.getString("transitionName");
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -114,12 +125,27 @@ public class PostDetailFragment extends Fragment implements PostDetailPresenter.
                 coverImageView.setImageDrawable(null);
             }
 
+            if (!title.isEmpty()) {
+                txtTitle.setText(title);
+            }
+
         }
     }
 
     public static Fragment newInstance() {
         return new PostDetailFragment();
 
+    }
+
+    @OnClick(R.id.detail_post_fab)
+    void chromeTabPost(){
+        if(url != null && !url.isEmpty()){
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            CustomTabsIntent customTabsIntent = builder.build();
+            customTabsIntent.launchUrl(getActivity(), Uri.parse(url));
+        }else{
+            Toast.makeText(getContext(), "Unable to open", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @OnClick(R.id.item_post_img)

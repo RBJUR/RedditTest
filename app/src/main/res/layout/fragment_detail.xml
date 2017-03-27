@@ -63,25 +63,29 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Who says Frodo is a bad actor"
+                android:maxLines="2"
+                tools:text="Who says Frodo is a bad actor"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textStyle="bold"
+                android:textSize="18sp" />
 
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/detail_post_recycler_view_replies"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_anchor="@id/item_post_txt_description"
+                app:layout_anchorGravity="bottom|end"
                 android:layout_marginTop="50dp" />
 
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/detail_post_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/activity_horizontal_margin"
-        android:src="@drawable/icone_share" />
+        android:src="@drawable/icon_chrome_color" />
 </android.support.design.widget.CoordinatorLayout>

@@ -57,6 +57,7 @@ ext {
             recyclerviewAnimator: "jp.wasabeef:recyclerview-animators:2.2.1",
             butterKnife         : "com.jakewharton:butterknife:${butterKnifeVersion}",
             butterKnifeCompiler : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
+            chromeTabs          : "com.android.support:customtabs:23.3.0",
 
 
     ]
