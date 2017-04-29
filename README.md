@@ -5,7 +5,7 @@ RedditTest is an open source project to advertise my job, developed in native an
  Https://www.reddit.com/dev/api/
 
 Main libraries
-Retrofit
+>Retrofit
 Junit
 Gson
 Dagger
