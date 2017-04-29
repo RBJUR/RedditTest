@@ -1,13 +1,23 @@
 # RedditTest
+About
 
-Is a native project of an android application, open source for evaluations of my job.
+RedditTest is an open source project to advertise my job, developed in native android, integrating restful services in api reddit -
+ Https://www.reddit.com/dev/api/
 
-Reddit is an open api follow the link with your documentation
+Main libraries
+Retrofit
+Junit
+Gson
+Dagger
+Butterknife
+Eventbus
 
-Https://www.reddit.com/dev/api/
+Architecture
+MVP
 
-In this project you will find an architecture in MVP, unit tests where I used jUnit, integration with restful services using the retrofit library with dependency injection using the dagger library.
+Tests
+Test Unitarians
+Recorder Testes
 
-I will always be updating this project with the news of the market, I hope you like it, I am open to criticism and suggestions.
-
-Thank you
+Updates
+I always try to update with news, next updates will be to contemplate RxJava and Klotin.
