@@ -16,8 +16,5 @@ RedditTest is an open source project to advertise my job, developed in native an
 * MVP
 
 ## Tests
-* Test Unitarians
-* Recorder Testes
+* Test Unitarios
 
-## Updates
-I always try to update with news, next updates will be to contemplate RxJava and Klotin.
